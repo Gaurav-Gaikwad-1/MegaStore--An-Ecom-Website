@@ -7,7 +7,9 @@
     "start": "node server/server",
     "server": "nodemon server/server",
     "frontend": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run frontend\""
+    "dev": "concurrently \"npm run server\" \"npm run frontend\"",
+    "data:import" : "node server/seeder",
+    "data:destroy" : "node server/seeder -d"
   },
   "repository": {
     "type": "git",
@@ -20,6 +22,7 @@
   },
   "homepage": "https://github.com/Gaurav-Gaikwad-1/MegaStore--An-Ecom-Website#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
