@@ -12,6 +12,7 @@ dotenv.config();
 
 connectDB();
 
+//to import data to db
 const importData = async() => {
     try{
         await User.deleteMany()
@@ -37,6 +38,7 @@ const importData = async() => {
     }
 }
 
+//to delete data from db
 const destroyData = async() => {
     try{
         await User.deleteMany()
