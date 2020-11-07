@@ -10,12 +10,12 @@ const HomeScreen = () => {
 
     const dispatch = useDispatch()
 
-    const productList = useSelector(state => state.productList)
+    const productList = useSelector(state => state.productList)                 //here we r taking productList from our global state defined by our redux store
 
-    const { loading,error,products } = productList
+    const { loading,error,products } = productList                           //extracting 3 properties from productlist state
 
     useEffect(() => {
-        dispatch(listProducts())
+        dispatch(listProducts())                                             //call to listProducts action which fills productList
     },[dispatch])
 
 

@@ -3,6 +3,7 @@ const dotenv = require('dotenv')
 const connectDB = require('./config/db')
 const colors = require('colors')
 const productRoutes = require('./routes/productRoutes')
+const userRoutes = require('./controllers/userController')
 const {notFound,errorHandler} = require('./middleware/errorMiddleware')
 var cors = require('cors')
 
@@ -16,11 +17,15 @@ app.use(cors())
 connectDB();
 
 
+app.use(express.json())                                 //this allows to accept JSON data in the body
 app.use('/api/products', productRoutes)
+app.use('/api/users', userRoutes)
 
 app.get('/' , (req,res) => {
     res.send('Apps Home page')
 })
+
+
 app.use(notFound)
 app.use(errorHandler)
 
