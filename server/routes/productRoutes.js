@@ -4,8 +4,8 @@ const router = express.Router()
 
 
 
-router.route('/').get(getProducts)                             //router.get('/',getProducts)
-router.route('/:id').get(getProductById)                         //router.get('/:id',getProductById)
+router.get('/',getProducts)              //router.route('/').get(getProducts) 
+router.get('/:id',getProductById)  //router.route('/:id').get(getProductById) 
 
 
 

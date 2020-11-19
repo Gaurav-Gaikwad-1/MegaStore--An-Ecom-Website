@@ -20,9 +20,18 @@ const authUser = asyncHandler(async(req,res) => {
             token: generateToken(user._id)
         })
     } else {
-        res.status(401)
-        throw new Error('Invalid Email or Password')
+        // res.status(401)
+        // throw new Error('Invalid Email or Password')
     }
 })
 
-module.exports = authUser
+// @desc    Get active profiles
+// @route   GET  /api/users/profile
+// @access  Private
+const getUserProfile = asyncHandler(async(req,res) => {
+    
+    res.send('Success') 
+})
+
+module.exports = getUserProfile,authUser
+// module.exports =  authUser 

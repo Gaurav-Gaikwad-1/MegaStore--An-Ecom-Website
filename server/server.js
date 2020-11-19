@@ -2,8 +2,6 @@ const express = require('express')
 const dotenv = require('dotenv')
 const connectDB = require('./config/db')
 const colors = require('colors')
-const productRoutes = require('./routes/productRoutes')
-const userRoutes = require('./controllers/userController')
 const {notFound,errorHandler} = require('./middleware/errorMiddleware')
 var cors = require('cors')
 
@@ -14,10 +12,20 @@ const app = express()
 app.use(cors())
 
 
-connectDB();
 
 
-app.use(express.json())                                 //this allows to accept JSON data in the body
+//middleware
+app.use(express.json())             //this allows to accept JSON data in the body
+app.use(express.urlencoded({ extended: false }));  
+
+//connection to database
+connectDB()
+
+//require routes handlers
+const productRoutes = require('./routes/productRoutes')
+const userRoutes = require('./controllers/userController')
+
+//routes
 app.use('/api/products', productRoutes)
 app.use('/api/users', userRoutes)
 
@@ -27,7 +35,7 @@ app.get('/' , (req,res) => {
 
 
 app.use(notFound)
-app.use(errorHandler)
+app.use(errorHandler)   
 
 
 const PORT = process.env.PORT || 5000
