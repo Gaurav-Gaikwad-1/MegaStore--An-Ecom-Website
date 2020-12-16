@@ -59,3 +59,49 @@ if(process.argv[2] === '-d'){
 }else{
     importData()
 }
+
+
+
+// User.find({ email })                         //User.find({ email : email }) if both names are same we can use just one name
+    //     .exec()
+    //     .then(doc => {
+    //         //check if email is present
+    //         if (doc.length < 1) {
+    //             res.status(400).json({
+    //                 message: "User not registered",
+    //                 error: "Email cannot be found"
+    //             });
+    //         } else {
+    //             //check password match
+    //             bcrypt.compare(password, doc[0].password, (err, result) => {
+    //                 if (err) {
+    //                     res.status(500).json({
+    //                         message: "Internal server error",
+    //                         error: err
+    //                     })
+    //                 }
+    //                 if (result === true) {
+    //                     //return response
+    //                     res.status(200).json({
+    //                         _id: user._id,
+    //                         name: user.name,
+    //                         email: user.email,
+    //                         isAdmin: user.isAdmin,
+    //                         token: generateToken(user._id)
+    //                     })
+    //                 } else {
+    //                     res.status(400).json({
+    //                         message: "Email and password combination doesnt match",
+    //                         error: err
+    //                     })
+    //                 }
+    //             })
+        
+    //        }
+    //     })
+    //     .catch(err => {
+    //         res.status(500).json({
+    //             message: "internal server error",
+    //             error: err
+    //         });
+    //     })

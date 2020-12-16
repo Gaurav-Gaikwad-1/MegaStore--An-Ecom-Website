@@ -1,37 +1,33 @@
 const asyncHandler = require('express-async-handler')
 const User = require('../models/userModel')
+const bcrypt = require('bcryptjs')
 const generateToken = require('../utils/generateToken')
 
-// @desc    Get user login & give token
-// @route   POST  /api/users/login
+// @desc    Authenticate USer
+// @route   GET /api/users/login
 // @access  Public
 const authUser = asyncHandler(async(req,res) => {
-    
-    const {email,password} = req.body
+    const { email,password } = req.body
 
-    const user = await User.findOne({ email })              //find user by emailid     //await User.findOne({ email: email })
+    const user = await User.findOne({ email })
 
-    if(user && user.matchPassword(password)){                //If user exists then check for password
+    if(user && (await user.matchPassword(password))){
         res.json({
-            _id:user._id,
-            name:user.name,
-            email:user.email,
+            _id: user._id,
+            name: user.name,
+            email: user.email,
             isAdmin: user.isAdmin,
-            token: generateToken(user._id)
+            token: null
         })
     } else {
-        // res.status(401)
-        // throw new Error('Invalid Email or Password')
+        res.status(400).json({
+            message: "Email and password combination doesnt match"
+        })
+        // throw new Error('Invalid email or Password')
     }
-})
-
-// @desc    Get active profiles
-// @route   GET  /api/users/profile
-// @access  Private
-const getUserProfile = asyncHandler(async(req,res) => {
     
-    res.send('Success') 
 })
 
-module.exports = getUserProfile,authUser
-// module.exports =  authUser 
+
+
+module.exports = authUser
