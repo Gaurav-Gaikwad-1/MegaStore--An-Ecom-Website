@@ -4,7 +4,7 @@ const Product = require('../models/productModel')
 // @desc    Fetch all products
 // @route   GET /api/products
 // @access  Public
-const getProducts = asyncHandler(async(req,res) => {
+exports.getProducts = asyncHandler(async(req,res) => {
     const products = await Product.find({})
     res.json(products)
 })
@@ -13,7 +13,7 @@ const getProducts = asyncHandler(async(req,res) => {
 // @desc    Fetch single products
 // @route   GET /api/products/:id
 // @access  Public
-const getProductById = asyncHandler(async(req,res) => {
+exports.getProductById = asyncHandler(async(req,res) => {
     // Product.findById(req.params.id)    //req.params.id will give u the id from url
     //     .exec()
     //     .then(product => {
@@ -33,7 +33,7 @@ const getProductById = asyncHandler(async(req,res) => {
     }
 })
 
-module.exports = { getProducts,getProductById }
+
 
 
 
