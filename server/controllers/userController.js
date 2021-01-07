@@ -8,34 +8,30 @@ const generateToken = require('../utils/generateToken')
 exports.authUser = asyncHandler(async(req,res) => {
     
     const {email,password} = req.body;
-    if(!email || !password){
-        res.status(400).send('NO username or password entered');
-        return;
-    }
+    // if(!email || !password){
+    //     res.status(400);
+    //     throw new Error('NO username or password entered');
+    // }
 
     const user = await User.findOne({ email })              //find user by emailid     //await User.findOne({ email: email })
 
-    // if(user && user.matchPassword(password)){                
-    //     res.json({
-    //         _id:user._id, 
-    //         name:user.name,
-    //         email:user.email,
-    //         isAdmin: user.isAdmin,
-    //         token: generateToken(user._id)
-    //     })
-    // } 
-    if(!(user && user.matchPassword(password))) {       //If user exists then check for password
-        res.status(404).send('Invalid Email or Password');
-        return;
+
+ 
+    if(user && (await user.matchPassword(password))) {       //If user exists then check for password
+        res.json({
+            _id:user._id, 
+            name:user.name,
+            email:user.email,
+            isAdmin: user.isAdmin,
+            token: generateToken(user._id)
+        })
+        
+    }else{
+        res.status(404)
+        throw new Error('Invalid Email or Password');
     }
     
-    res.json({
-        _id:user._id, 
-        name:user.name,
-        email:user.email,
-        isAdmin: user.isAdmin,
-        token: generateToken(user._id)
-    })
+    
 })
 
 
@@ -90,6 +86,31 @@ exports.getUserProfile = asyncHandler(async(req,res) => {
         })
     }else{
         res.status(404).send('User not found');
+    }
+});
+
+exports.updateUserProfile = asyncHandler(async(req,res) => {
+    const user = await User.findById(req.user._id);
+
+    if(user){
+        user.name = req.body.name || user.name
+        user.email = req.body.email || user.email
+        if(req.body.password){
+            user.password = req.body.password;
+        }
+
+        const updatedUser = await user.save();
+
+        res.json({
+            _id:updatedUser._id, 
+            name:updatedUser.name,
+            email:updatedUser.email,
+            isAdmin: updatedUser.isAdmin,
+            // token: generateToken(updatedUser._id) 
+        })
+    }else{
+        res.status(404)
+        throw new Error('User not found');
     }
 });
 
