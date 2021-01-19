@@ -24,10 +24,15 @@ connectDB();
 //require routes handlers
 const productRoutes = require('./routes/productRoutes');
 const userRoutes = require('./routes/userRoutes');
+const orderRoutes = require('./routes/orderRoutes');
 
 //routes
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/orders', orderRoutes);
+app.get('/api/config/paypal' ,(req,res) => {
+    req.send(process.env.PAYPAL_CLIENT_ID);
+})
 
 app.get('/' , (req,res) => {
     res.send('Apps Home page');

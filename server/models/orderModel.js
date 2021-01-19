@@ -30,23 +30,11 @@ const orderSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    paymentResult:{
-        type: String,
-        required: true
-    },
-    paymentMethod:{                    //this data will be coming from  paypal after payment completion
+    paymentResult:{                    //this data will be coming from  paypal after payment completion
         id : { type: String },
         status: { type: String },
         update_time : {type:String},
         email: { type:String }
-    },
-     paymentMethod:{
-        type: String,
-        required: true
-    },
-    paymentMethod:{
-        type: String,
-        required: true
     },
     taxPrice:{
         type: Number,

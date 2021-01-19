@@ -31,6 +31,14 @@ exports.protect = asyncHandler(async(req,res,next) => {
     }
 });
 
+exports.adminPriviledge = (req,res,next) => {
+    if(req.user && req.user.isAdmin){
+        next();
+    }else{
+        res.status(401);
+        throw new Error('Not Authorized for Admin Priviledges');
+    }
+}
 
 //1. select : specifies which document field to include or exclude 
 //2.When we pass token we can get the user id associated with that token using JWT.verify() method then using that userId 
